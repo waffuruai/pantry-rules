@@ -1,0 +1,12 @@
+# Cases for Any.Miner.C3poolKit.yar: each `text` must match exactly the rules
+# in `rules` (none: it must match nothing).
+
+[[case]]
+name = "the kit's pool configuration"
+text = "{\"algo\":\"rx/0\",\"url\":\"auto.c3pool.org:443\",\"user\":\"x\",\"rig-id\":\"r\",\"pass\":\"x\"}"
+rules = ["Any_Miner_C3poolKit_Config"]
+
+[[case]]
+name = "an ordinary JSON config"
+text = "{\"name\":\"app\",\"url\":\"https://example.com\",\"user\":\"me\"}"
+rules = []
