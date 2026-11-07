@@ -1,0 +1,9 @@
+# For the secret scanners (the org pre-commit hook's gitleaks): betterleaks' vendored config is
+# rules and published example keys, not secrets. Generated rule files mark their own pattern
+# lines with gitleaks:allow.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "betterleaks' config, vendored as the secret rules' source"
+paths = ['''^vendor/betterleaks/''']
