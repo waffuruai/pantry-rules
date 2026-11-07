@@ -120,7 +120,7 @@ class CaseTests(unittest.TestCase):
 class CatalogueTests(unittest.TestCase):
     def test_a_shape_keeps_the_prefix_and_masks_the_rest_by_class(self):
         self.assertEqual(bl.shape("ghp_aB3-x9"), "ghp_‹3›-‹2›")
-        self.assertEqual(bl.shape("A3-IT8EV3-WY81"), "A3-I‹4›-‹4›")
+        self.assertEqual(bl.shape("A3-IT8EV3-WY81"), "A3-I‹5›-‹4›")
         self.assertEqual(bl.shape("abcd"), "abcd")
 
 
