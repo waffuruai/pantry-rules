@@ -1,0 +1,23 @@
+# Tools and tasks for this repo. `mise bootstrap`, then `mise run test`.
+[tools]
+python = "3.15.1"           # tools/ (stdlib only)
+betterleaks = "1.10.0"      # the reference the secret rules' test cases are confirmed against
+
+[tasks.bootstrap]
+description = "Nothing to set up past the [tools] mise installs"
+run = "true"
+
+[tasks.gen]
+description = "Translate vendor/betterleaks/betterleaks.toml into rules/any/secret/, with test cases betterleaks confirms"
+run = "python3 -I tools/betterleaks.py"
+
+[tasks.test]
+description = "The translator's tests, then a fresh translation compared with rules/any/secret/"
+run = '''
+python3 -I -m unittest discover -s tools
+python3 -I tools/betterleaks.py --check
+'''
+
+[tasks.lint]
+description = "Byte-compile tools/"
+run = "python3 -I -m py_compile tools/*.py"
