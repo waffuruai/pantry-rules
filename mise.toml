@@ -1,6 +1,6 @@
 # Tools and tasks for this repo. `mise bootstrap`, then `mise run test`.
 [tools]
-python = "3.15.1"           # tools/ (stdlib only)
+python = "3.15.2"           # tools/ (stdlib only)
 betterleaks = "1.10.0"      # the reference the secret rules' test cases are confirmed against
 
 [tasks.bootstrap]
