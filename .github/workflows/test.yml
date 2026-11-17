@@ -1,0 +1,33 @@
+name: Test
+
+# The translator's tests, and a fresh translation of betterleaks' rules compared
+# with rules/any/secret/ (its test cases confirmed by the pinned betterleaks).
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
+        with:
+          cache: true
+
+      - name: Lint
+        run: mise run lint
+
+      - name: Test
+        run: mise run test
