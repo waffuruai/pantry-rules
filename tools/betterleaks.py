@@ -67,6 +67,7 @@ TARGETS = {("finding", "secret"): "secret", ("finding", "match"): "match",
            ("finding", "line"): "line", ("attributes", "path"): "path"}
 
 ROUNDS = 120     # sampling rounds before a rule is left without cases
+SOLO_ROUNDS = 20  # then rounds alone, for rules whose regex runs into the next candidate
 SPREAD = 8       # how far past its minimum a sampled repeat may run
 GAP = "\n" * 12  # between candidates sampled in one betterleaks run
 POSIX = {"alnum": "A-Za-z0-9", "alpha": "A-Za-z", "digit": "0-9", "upper": "A-Z", "lower": "a-z",
@@ -514,12 +515,17 @@ def sample(rng, parsed):
 
 
 def betterleaks(text):
-    """betterleaks' findings on `text`: (rule id, secret, start line) per finding."""
+    """betterleaks' findings on `text`: (rule id, secret, start line) per finding.
+
+    The text is a file, not stdin: betterleaks cuts its fragments where a read
+    stops, and a pipe's reads stop at different places on Linux and macOS."""
     with tempfile.TemporaryDirectory() as d:
         report = pathlib.Path(d) / "r.json"
-        subprocess.run(["betterleaks", "stdin", "--no-banner", "--log-level", "error", "--exit-code", "0",
+        sample = pathlib.Path(d) / "sample.txt"
+        sample.write_bytes(text.encode())
+        subprocess.run(["betterleaks", "dir", str(sample), "--no-banner", "--log-level", "error", "--exit-code", "0",
                         "--config", str(SOURCE), "--report-format", "json", "--report-path", str(report)],
-                       input=text.encode(), capture_output=True, check=True)
+                       capture_output=True, check=True, cwd=d)
         return [(f["RuleID"], f["Secret"], f["StartLine"]) for f in json.loads(report.read_text() or "[]")]
 
 
@@ -577,6 +583,18 @@ def cases(rules):
             if accepted(rules[rid], text, inside) and accepted(rules[rid], text, betterleaks(text)):
                 found_cases[rid] = text
                 del todo[rid]
+    # A regex that runs across lines ([\s\S]) can start in one candidate and
+    # end in another, so neither is ever accepted in a batch: the rules left
+    # get rounds of their own.
+    for rid, s in todo.items():
+        for _ in range(SOLO_ROUNDS):
+            try:
+                text = s.next()
+            except Unsupported:
+                break
+            if accepted(rules[rid], text, betterleaks(text)):
+                found_cases[rid] = text
+                break
     out = {}
     for rid, text in found_cases.items():
         secret = accepted(rules[rid], text, betterleaks(text))

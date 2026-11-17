@@ -162,7 +162,7 @@ stored reversed.
 | [gcp-api-key](Any.Secret.GcpApiKey.yar) | Uncovered a GCP API key, which could lead to unauthorized access to Google Cloud services and data breaches. | high | <code>AIza‹35›</code> | <!-- gitleaks:allow -->
 | [gcp-application-default-credentials](Any.Secret.GcpApplicationDefaultCredentials.yar) | Google (GCP) Application Default Credentials | high | no sample | <!-- gitleaks:allow -->
 | [gcp-gemini-api](Any.Secret.GcpGeminiApi.yar) | Detected a Google Gemini API key, which may expose Gemini model access and usage to unauthorized parties. | high | <code>AQ.A‹40›-‹8›</code> | <!-- gitleaks:allow -->
-| [gcp-service-account](Any.Secret.GcpServiceAccount.yar) | Google (GCP) Service-account | high | <code>{kAm‹3›"‹7›_‹3›" :"-----‹5› ‹3› ‹7› ‹3›-----‹12›_‹8›_‹4›_‹4›_‹4›}</code> | <!-- gitleaks:allow -->
+| [gcp-service-account](Any.Secret.GcpServiceAccount.yar) | Google (GCP) Service-account | high | <code>{1jO‹3›"‹7›_‹3›"      :"-----‹5› ‹3› ‹7› ‹3›-----‹13›_‹8›_‹4›_‹4›_‹6›}</code> | <!-- gitleaks:allow -->
 | [generic-api-key](Any.Secret.GenericApiKey.yar) | Detected a Generic API Key, potentially exposing access to various services and sensitive operations. | low | <code>1aPu‹11›==</code> | <!-- gitleaks:allow -->
 | [generic-credential-uri](Any.Secret.GenericCredentialUri.yar) | Detected a password embedded in a service connection URI, which may expose direct access to the referenced service. | medium | <code>76v1‹5›</code> | <!-- gitleaks:allow -->
 | [generic-password](Any.Secret.GenericPassword.yar) | Detected a potential hardcoded password literal, which may expose account credentials. | low | <code>\i4N\‹1›\‹3›\‹1›\‹1›</code> | <!-- gitleaks:allow -->
@@ -318,7 +318,7 @@ stored reversed.
 | [postman-api-token](Any.Secret.PostmanApiToken.yar) | Uncovered a Postman API token, potentially compromising API testing and development workflows. | high | <code>PMAK-‹24›-‹34›</code> | <!-- gitleaks:allow -->
 | [postmark-api-token.1](Any.Secret.PostmarkApiToken1.yar) | Postmark server or account API token, which may allow access to email delivery and account configuration. | high | <code>1D5D‹4›-‹4›-‹4›-‹4›-‹12›</code> | <!-- gitleaks:allow -->
 | [prefect-api-token](Any.Secret.PrefectApiToken.yar) | Detected a Prefect API token, risking unauthorized access to workflow management and automation services. | high | <code>pnu_‹36›</code> | <!-- gitleaks:allow -->
-| [private-key](Any.Secret.PrivateKey.yar) | Identified a Private Key, which may compromise cryptographic security and sensitive data encryption. | high | <code>-----‹13› ‹3› ‹5›-----‹67›-----</code> | <!-- gitleaks:allow -->
+| [private-key](Any.Secret.PrivateKey.yar) | Identified a Private Key, which may compromise cryptographic security and sensitive data encryption. | high | <code>-----‹15› ‹3›-----‹74›-----</code> | <!-- gitleaks:allow -->
 | [privateai-api-token](Any.Secret.PrivateaiApiToken.yar) | Identified a PrivateAI Token, posing a risk of unauthorized access to AI services and data manipulation. | medium | <code>1we3‹28›</code> | <!-- gitleaks:allow -->
 | [proof-full-access-api-key](Any.Secret.ProofFullAccessApiKey.yar) | Proof production full-access API key. | high | <code>prf_‹20›</code> | <!-- gitleaks:allow -->
 | [pulumi-api-token](Any.Secret.PulumiApiToken.yar) | Found a Pulumi API token, posing a risk to infrastructure as code services and cloud resource management. | high | <code>pul-‹40›</code> | <!-- gitleaks:allow -->
